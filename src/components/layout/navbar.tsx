@@ -10,7 +10,7 @@ export async function Navbar() {
 
     let userWidthName = null;
     if (user) {
-        const { data } = await supabase.from("profiles").select("full_name, slug").eq("id", user.id).single();
+        const { data } = await supabase.from("profiles").select("full_name, slug, role").eq("id", user.id).single();
         userWidthName = data;
     }
 
@@ -26,6 +26,14 @@ export async function Navbar() {
                     </Link>
                     {user ? (
                         <div className="flex items-center gap-4">
+                            {userWidthName?.role === "admin" && (
+                                <Link
+                                    href="/admin"
+                                    className="text-sm font-semibold text-red-600 hover:text-red-500"
+                                >
+                                    Admin
+                                </Link>
+                            )}
                             <Link
                                 href="/dashboard"
                                 className="rounded-full bg-zinc-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-900"
