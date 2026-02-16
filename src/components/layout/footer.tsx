@@ -17,8 +17,14 @@ export function Footer() {
                 </div>
                 <div className="mt-8 md:order-1 md:mt-0">
                     <p className="text-center text-xs leading-5 text-zinc-500">
-                        &copy; {new Date().getFullYear()} MeroGharInUSA. Connecting Nepali communities across America.
+                        &copy; {new Date().getFullYear()} MeroGharInUSA.
                     </p>
+                    <div className="mt-2 flex justify-center space-x-4 text-xs text-zinc-400">
+                        <Link href="/privacy" className="hover:text-zinc-500">Privacy</Link>
+                        <Link href="/terms" className="hover:text-zinc-500">Terms</Link>
+                        <Link href="/disclaimer" className="hover:text-zinc-500">Disclaimer</Link>
+                        <Link href="/report" className="hover:text-zinc-500">Report Issue</Link>
+                    </div>
                 </div>
             </div>
         </footer>
