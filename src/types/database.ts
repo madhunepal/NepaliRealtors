@@ -19,8 +19,10 @@ export type ProfessionalDetails = {
     license_number: string | null;
     phone: string | null;
     is_phone_public: boolean;
+    is_email_public: boolean;
     website: string | null;
     languages: string[] | null;
+    services: string[] | null;
     social_links: any | null;
 };
 

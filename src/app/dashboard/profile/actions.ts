@@ -2,10 +2,9 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { z } from "zod";
 
-const onboardingSchema = z.object({
+const profileSchema = z.object({
     fullName: z.string().min(2),
     bio: z.string().optional(),
     city: z.string().min(2),
@@ -23,7 +22,7 @@ const onboardingSchema = z.object({
     isEmailPublic: z.boolean().optional(),
 });
 
-export async function completeOnboarding(prevState: any, formData: FormData) {
+export async function updateProfile(prevState: any, formData: FormData) {
     try {
         const supabase = await createClient();
         const {
@@ -48,7 +47,7 @@ export async function completeOnboarding(prevState: any, formData: FormData) {
             isEmailPublic: formData.get("isEmailPublic") === "on",
         };
 
-        const validated = onboardingSchema.safeParse(rawData);
+        const validated = profileSchema.safeParse(rawData);
 
         if (!validated.success) {
             return { error: validated.error.flatten().fieldErrors };
@@ -56,45 +55,19 @@ export async function completeOnboarding(prevState: any, formData: FormData) {
 
         const data = validated.data;
 
-        // 1. Ensure Profile Exists & Update
-        const { data: existingProfile } = await supabase
-            .from("profiles")
-            .select("id")
-            .eq("id", user.id)
-            .single();
-
+        // 1. Update Profile Name & Role
         const role = data.services && data.services.length > 0 ? data.services.join(" & ") : "Professional";
 
-        if (!existingProfile) {
-            // Create Profile if missing (Fallback for failed triggers/legacy users)
-            const slug = data.fullName.toLowerCase().replace(/[^a-z0-9]+/g, '-') + "-" + Math.floor(Math.random() * 1000);
-            const { error: insertError } = await supabase
-                .from("profiles")
-                .insert({
-                    id: user.id,
-                    email: user.email!, // Authenticated user must have email
-                    full_name: data.fullName,
-                    role: role,
-                    slug: slug,
-                });
+        const { error: profileError } = await supabase
+            .from("profiles")
+            .update({
+                full_name: data.fullName,
+                role: role,
+            })
+            .eq("id", user.id);
 
-            if (insertError) {
-                console.error("Profile insert error", insertError);
-                return { error: `Failed to create profile: ${insertError.message}` };
-            }
-        } else {
-            // Update existing profile
-            const { error: updateError } = await supabase
-                .from("profiles")
-                .update({
-                    full_name: data.fullName,
-                    role: role,
-                })
-                .eq("id", user.id);
-
-            if (updateError) {
-                return { error: "Failed to update profile" };
-            }
+        if (profileError) {
+            return { error: profileError.message };
         }
 
         // 2. Upsert Professional Details
@@ -115,15 +88,14 @@ export async function completeOnboarding(prevState: any, formData: FormData) {
             });
 
         if (detailsError) {
-            console.error("Details error", detailsError);
-            return { error: `Failed to update professional details: ${detailsError.message}` };
+            return { error: detailsError.message };
         }
 
-        revalidatePath("/dashboard");
-        revalidatePath(`/pro/${user.user_metadata?.slug}`);
+        revalidatePath("/dashboard/profile");
+        // revalidatePath(`/pro/${user.user_metadata?.slug}`);
+
+        return { success: "Profile updated successfully!" };
     } catch (e: any) {
         return { error: e.message || "An unexpected error occurred." };
     }
-
-    redirect("/dashboard");
 }

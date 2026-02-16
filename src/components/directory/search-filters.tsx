@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useTransition } from "react";
 import { Search, MapPin, Filter, X } from "lucide-react";
 import { useDebouncedCallback } from "use-debounce";
-import { US_STATES } from "@/lib/data";
+import { US_STATES, LANGUAGES } from "@/lib/data";
 
 const ROLES = [
     { label: "All Pros", value: "all" },
@@ -12,16 +12,6 @@ const ROLES = [
     { label: "Loan Officers", value: "loan_officer" },
     { label: "Inspectors", value: "inspector" },
     { label: "Builders", value: "builder" },
-];
-
-const LANGUAGES = [
-    "Nepali",
-    "English",
-    "Newari",
-    "Hindi",
-    "Maithili",
-    "Gurung",
-    "Tamang",
 ];
 
 export function SearchFilters() {

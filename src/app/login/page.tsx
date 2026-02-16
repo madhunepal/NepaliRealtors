@@ -57,15 +57,15 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="flex min-h-screen flex-col items-center justify-center bg-zinc-50 dark:bg-black px-6">
+        <div className="flex min-h-screen flex-col items-center justify-center bg-zinc-50 dark:bg-black px-6 pt-20">
             <div className="w-full max-w-sm rounded-lg border border-zinc-200 bg-white p-8 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
                 <h1 className="mb-6 text-2xl font-bold text-zinc-900 dark:text-zinc-50">Sign In</h1>
 
                 {message && (
                     <div
                         className={`mb-4 rounded p-3 text-sm ${message.type === "error"
-                                ? "bg-red-50 text-red-600 dark:bg-red-900/10 dark:text-red-400"
-                                : "bg-green-50 text-green-600 dark:bg-green-900/10 dark:text-green-400"
+                            ? "bg-red-50 text-red-600 dark:bg-red-900/10 dark:text-red-400"
+                            : "bg-green-50 text-green-600 dark:bg-green-900/10 dark:text-green-400"
                             }`}
                     >
                         {message.text}

@@ -10,7 +10,7 @@ export async function Navbar() {
 
     let userWidthName = null;
     if (user) {
-        const { data } = await supabase.from("profiles").select("full_name").eq("id", user.id).single();
+        const { data } = await supabase.from("profiles").select("full_name, slug").eq("id", user.id).single();
         userWidthName = data;
     }
 
@@ -32,9 +32,12 @@ export async function Navbar() {
                             >
                                 Dashboard
                             </Link>
-                            <span className="hidden md:block text-sm font-medium text-zinc-700 dark:text-zinc-300">
+                            <Link href="/dashboard/messages" className="text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-red-600 transition-colors">
+                                Messages
+                            </Link>
+                            <Link href={userWidthName?.slug ? `/pro/${userWidthName.slug}` : "/dashboard/profile"} className="hidden md:block text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-red-600 transition-colors">
                                 {userWidthName?.full_name || "User"}
-                            </span>
+                            </Link>
                             <form action="/auth/signout" method="post">
                                 <button
                                     type="submit"

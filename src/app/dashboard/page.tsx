@@ -1,7 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { LogOut } from "lucide-react";
 
 export default async function DashboardPage() {
     const supabase = await createClient();
@@ -21,33 +20,22 @@ export default async function DashboardPage() {
         .single();
 
     return (
-        <div className="min-h-screen bg-zinc-50 dark:bg-black">
-            <nav className="border-b border-zinc-200 bg-white px-6 py-4 dark:border-zinc-800 dark:bg-zinc-900">
-                <div className="mx-auto flex max-w-7xl items-center justify-between">
-                    <Link href="/" className="text-xl font-bold text-red-600">
-                        MeroGharInUSA
-                    </Link>
-                    <div className="flex items-center gap-4">
-                        <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                            {profile?.full_name} ({profile?.role})
-                        </span>
-                        <form action="/auth/signout" method="post">
-                            <button
-                                type="submit"
-                                className="flex items-center gap-2 rounded-md bg-zinc-100 px-3 py-2 text-sm font-medium text-zinc-900 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-700"
-                            >
-                                <LogOut className="h-4 w-4" /> Sign Out
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </nav>
-
+        <div className="min-h-screen bg-zinc-50 dark:bg-black pt-24">
             <main className="mx-auto max-w-7xl px-6 py-10">
-                <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">Dashboard</h1>
-                <p className="mt-2 text-zinc-600 dark:text-zinc-400">
-                    Welcome back, {profile?.full_name}!
-                </p>
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">Dashboard</h1>
+                        <p className="mt-2 text-zinc-600 dark:text-zinc-400">
+                            Welcome back, {profile?.full_name}!
+                        </p>
+                    </div>
+                    <Link
+                        href="/dashboard/profile"
+                        className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 hover:bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-zinc-700"
+                    >
+                        Edit Profile
+                    </Link>
+                </div>
 
                 <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     {/* Card 1: Directory */}
@@ -88,7 +76,7 @@ export default async function DashboardPage() {
                         </div>
                     )}
                 </div>
-            </main>
-        </div>
+            </main >
+        </div >
     );
 }
