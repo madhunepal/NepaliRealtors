@@ -10,11 +10,11 @@ const profileSchema = z.object({
     city: z.string().min(2),
     state: z.string().min(2),
     licenseNumber: z.string().optional().or(z.literal("")),
-    website: z.string().optional().transform(val => {
+    website: z.string().optional().or(z.literal("")).transform(val => {
         if (!val) return null;
         if (val.startsWith("http://") || val.startsWith("https://")) return val;
         return `https://${val}`;
-    }).pipe(z.string().url().optional().or(z.literal("").transform(() => null))),
+    }).pipe(z.string().url().nullable()),
     phone: z.string().optional(),
     languages: z.array(z.string()).optional(),
     services: z.array(z.string()).optional(),
