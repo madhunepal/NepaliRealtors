@@ -17,6 +17,22 @@ export async function sendMessage(proId: string, content: string) {
         return { error: "You cannot message yourself." };
     }
 
+    // Check if recipient has blocked sender
+    // We need admin client because normal users cannot see who blocked them
+    const { createAdminClient } = await import("@/lib/supabase/admin");
+    const adminClient = createAdminClient();
+
+    const { data: blockCheck } = await adminClient
+        .from("blocks")
+        .select("id")
+        .eq("blocker_id", proId)
+        .eq("blocked_id", user.id)
+        .single();
+
+    if (blockCheck) {
+        return { error: "You cannot message this user." };
+    }
+
     let conversationId: string | null = null;
 
     // 1. Check if conversation already exists

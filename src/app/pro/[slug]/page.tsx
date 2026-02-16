@@ -5,6 +5,14 @@ import { notFound } from "next/navigation";
 import { BadgeCheck, MapPin, Globe, Phone, Mail } from "lucide-react";
 import Image from "next/image";
 import { MessageButton } from "@/components/profile/message-button";
+import { ReportButton } from "@/components/profile/report-button";
+import { BlockButton } from "@/components/profile/block-button";
+import { checkIsBlocked } from "@/app/actions/blocking";
+
+async function BlockButtonWrapper({ targetId, targetName }: { targetId: string, targetName: string }) {
+    const isBlocked = await checkIsBlocked(targetId);
+    return <BlockButton targetUserId={targetId} targetUserName={targetName} initialIsBlocked={isBlocked} />;
+}
 
 type Props = {
     params: Promise<{ slug: string }>;
@@ -81,7 +89,18 @@ export default async function ProfilePage({ params }: Props) {
                                 </div>
                                 <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
                                     {user?.id !== profile.id ? (
-                                        <MessageButton proId={profile.id} proName={profile.full_name || "Professional"} />
+                                        <>
+                                            <MessageButton proId={profile.id} proName={profile.full_name || "Professional"} />
+                                            {/* We need to fetch block status here or pass it to a client component. 
+                                                Since BlockButton handles its own state, passing initial state is best. */}
+                                            {/* Note: We can't await inside this JSX expression easily without making the whole component async which it is. 
+                                                But we need to call checkIsBlocked(profile.id). */}
+                                            <div className="flex gap-2 items-center">
+                                                <BlockButtonWrapper targetId={profile.id} targetName={profile.full_name || "User"} />
+                                                <span className="text-zinc-300 dark:text-zinc-700">|</span>
+                                                <ReportButton targetUserId={profile.id} targetUserName={profile.full_name || "User"} />
+                                            </div>
+                                        </>
                                     ) : (
                                         <Link
                                             href="/dashboard/profile"

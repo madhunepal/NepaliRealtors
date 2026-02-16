@@ -19,6 +19,8 @@ export const metadata: Metadata = {
   description: "Find Trusted Nepali Real Estate Professionals in the USA.",
 };
 
+import { Toaster } from "@/components/ui/sonner";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,6 +33,7 @@ export default function RootLayout({
       >
         <Navbar />
         {children}
+        <Toaster />
         <Footer />
       </body>
     </html>

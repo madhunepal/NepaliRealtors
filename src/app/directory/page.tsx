@@ -2,17 +2,32 @@ import { createClient } from "@/lib/supabase/server";
 import { ProfessionalCard } from "@/components/directory/professional-card";
 import { SearchFilters } from "@/components/directory/search-filters";
 import { ProfessionalProfile } from "@/types/database";
+import { Metadata } from "next";
 
-export const metadata = {
-    title: "Directory - MeroGharInUSA",
-    description: "Browse verified Nepali real estate professionals in the USA.",
-};
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
+export async function generateMetadata({ searchParams }: { searchParams: SearchParams }): Promise<Metadata> {
+    const params = await searchParams;
+    const role = typeof params.role === 'string' ? params.role : 'Professionals';
+    const city = typeof params.city === 'string' ? params.city : 'USA';
+
+    // Format role: "real_estate_agent" -> "Real Estate Agents"
+    const formattedRole = role === 'Professionals'
+        ? 'Nepali Professionals'
+        : role.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') + 'S'; // simplistic plural
+
+    return {
+        title: `Find ${formattedRole} in ${city} - MeroGharInUSA`,
+        description: `Browse trusted Nepali ${formattedRole.toLowerCase()} in ${city}. Connect with verified community experts.`,
+    };
+}
 
 export default async function DirectoryPage({
     searchParams,
 }: {
-    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+    searchParams: SearchParams;
 }) {
+    const params = await searchParams;
     const supabase = await createClient();
     const resolvedParams = await searchParams;
     const { category, city, state, q, lang, verified } = resolvedParams;
