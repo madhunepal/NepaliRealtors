@@ -30,25 +30,25 @@ export function Hero() {
                         </div>
                     </div>
                     <h1 className="mt-10 text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-6xl">
-                        Find Trusted Nepali Real Estate Pros in the USA
+                        Find <span className="text-red-600">Trusted Nepali</span> Real Estate Pros in the USA
                     </h1>
                     <p className="mt-6 text-lg leading-8 text-zinc-600 dark:text-zinc-400">
                         Connect with verified Nepali-speaking agents, lenders, and inspectors who understand your culture and needs.
                         <br />
-                        <span className="font-hindi text-base opacity-80 mt-2 block text-red-600 dark:text-red-400">
+                        <span className="mt-4 block font-hindi text-base text-zinc-500 opacity-80 dark:text-zinc-500">
                             अमेरिकामा भरपर्दो नेपाली घरजग्गा व्यवसायी खोज्नुहोस्।
                         </span>
                     </p>
 
                     {/* Search Bar */}
-                    <form onSubmit={handleSearch} className="mt-10 flex max-w-md mx-auto lg:mx-0 gap-x-4 relative">
+                    <form onSubmit={handleSearch} className="relative mx-auto mt-10 flex max-w-md gap-x-4 lg:mx-0">
                         <div className="relative flex-grow">
                             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                 <Search className="h-5 w-5 text-zinc-400" aria-hidden="true" />
                             </div>
                             <input
                                 type="text"
-                                className="block w-full rounded-md border-0 py-3 pl-10 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6 dark:bg-zinc-900 dark:ring-zinc-700 dark:text-white"
+                                className="block w-full rounded-md border-0 py-4 pl-10 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6 dark:bg-zinc-900 dark:ring-zinc-700 dark:text-white"
                                 placeholder="Search by city, name, or service..."
                                 value={query}
                                 onChange={(e) => setQuery(e.target.value)}
@@ -56,15 +56,15 @@ export function Hero() {
                         </div>
                         <button
                             type="submit"
-                            className="flex-none rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                            className="flex-none rounded-md bg-red-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:scale-105 hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
                         >
-                            Search
+                            Find a Pro
                         </button>
                     </form>
 
-                    <div className="mt-10 flex items-center justify-center lg:justify-start gap-x-6">
-                        <Link href="/directory" className="text-sm font-semibold leading-6 text-zinc-900 dark:text-zinc-50 hover:text-red-600 transition-colors">
-                            Browse All Pros <span aria-hidden="true">→</span>
+                    <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
+                        <Link href="/signup" className="text-sm font-semibold leading-6 text-zinc-900 transition-colors hover:text-red-600 dark:text-zinc-50">
+                            List your services / Create Profile <span aria-hidden="true">→</span>
                         </Link>
                     </div>
                 </div>
