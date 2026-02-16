@@ -214,7 +214,7 @@ function MessagesContent() {
     const otherParticipant = activeConvDetails?.participants[0];
 
     return (
-        <div className="flex h-[calc(100vh-4rem)] overflow-hidden rounded-lg border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900 shadow-sm m-4 md:m-8">
+        <div className="flex h-[calc(100vh-9rem)] overflow-hidden rounded-lg border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900 shadow-sm mx-4 mb-4 mt-24 md:mx-8 md:mb-8 md:mt-24">
             {/* Sidebar List */}
             <div className={`w-full md:w-80 flex-shrink-0 border-r border-zinc-200 dark:border-zinc-800 ${activeConversationId ? 'hidden md:flex' : 'flex'} flex-col`}>
                 <div className="p-4 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/50">
