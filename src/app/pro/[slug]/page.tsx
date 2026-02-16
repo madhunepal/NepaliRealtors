@@ -21,8 +21,8 @@ export async function generateMetadata({ params }: Props) {
     if (!profile) return { title: "Profile Not Found" };
 
     return {
-        title: `${profile.full_name} (${profile.role}) - MeroGhar`,
-        description: `Connect with ${profile.full_name} on MeroGhar.`,
+        title: `${profile.full_name} (${profile.role}) - MeroGharInUSA`,
+        description: `Connect with ${profile.full_name} on MeroGharInUSA.`,
     };
 }
 

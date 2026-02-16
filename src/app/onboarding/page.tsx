@@ -4,6 +4,7 @@ import { completeOnboarding } from "./actions";
 import { useActionState } from "react";
 import { Loader2, Upload } from "lucide-react";
 import { useState } from "react";
+import { US_STATES } from "@/lib/data";
 
 const initialState = {
     error: null as string | object | null,
@@ -127,13 +128,22 @@ export default function OnboardingPage() {
                                     State
                                 </label>
                                 <div className="mt-2">
-                                    <input
-                                        type="text"
+
+
+                                    <select
                                         name="state"
                                         id="state"
                                         required
-                                        className="block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-red-600 dark:bg-zinc-950 dark:text-zinc-50 dark:ring-zinc-700"
-                                    />
+                                        defaultValue=""
+                                        className="block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 focus:ring-2 focus:ring-inset focus:ring-red-600 dark:bg-zinc-950 dark:text-zinc-50 dark:ring-zinc-700"
+                                    >
+                                        <option value="" disabled>Select a State</option>
+                                        {US_STATES.map((state) => (
+                                            <option key={state} value={state}>
+                                                {state}
+                                            </option>
+                                        ))}
+                                    </select>
                                 </div>
                             </div>
 

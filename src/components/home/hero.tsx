@@ -16,13 +16,13 @@ export function Hero() {
                         </a>
                     </div>
                     <h1 className="mt-10 text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-6xl">
-                        Find a Trusted Nepali Real Estate Professional Near You.
+                        Find Trusted Nepali Real Estate Professionals in the USA.
                     </h1>
                     <p className="mt-6 text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-                        Buy, sell, or inspect with confidence. We connect you with verified Nepali-speaking experts who understand your needs.
+                        Buy, sell, or inspect with confidence. We connect you with verified Nepali-speaking experts across the United States.
                         <br />
                         <span className="font-hindi text-base opacity-80 mt-2 block">
-                            तपाईंको नजिकै भरपर्दो नेपाली घरजग्गा व्यवसायी खोज्नुहोस्।
+                            अमेरिकामा भरपर्दो नेपाली घरजग्गा व्यवसायी खोज्नुहोस्।
                         </span>
                     </p>
                     <div className="mt-10 flex items-center gap-x-6">
