@@ -2,7 +2,8 @@
 
 import { useEffect, useState, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { Loader2, Send } from "lucide-react";
+import { Loader2, Send, MoreVertical, ShieldAlert, Ban } from "lucide-react";
+import { ReportModal } from "./report-modal";
 
 type Message = {
     id: string;
