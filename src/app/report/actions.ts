@@ -67,7 +67,8 @@ export async function submitGeneralReport(prevState: ReportState, formData: Form
 
         if (error) {
             console.error("Report submission error:", error);
-            return { error: "Failed to submit report. Please try again later." };
+            // In production, maybe hide details, but for debugging now:
+            return { error: `Failed to submit report: ${error.message || "Unknown error"}` };
         }
 
         return { success: true, message: "Report submitted successfully. We will review it shortly." };
