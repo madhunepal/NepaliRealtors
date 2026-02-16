@@ -1,5 +1,7 @@
 import { Hero } from "@/components/home/hero";
 import { ValueProps } from "@/components/home/value-props";
+import { CategoryGrid } from "@/components/home/category-grid";
+import { CTASection } from "@/components/home/cta-section";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -24,9 +26,11 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between bg-white dark:bg-black">
+    <main className="flex min-h-screen flex-col bg-white dark:bg-black">
       <Hero />
+      <CategoryGrid />
       <ValueProps />
+      <CTASection />
     </main>
   );
 }
